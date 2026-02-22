@@ -19,24 +19,27 @@
 
     <script>
         function buscar() {
-            const nome = document.getElementById('nomeCatequizando').value;
-            const divRes = document.getElementById('resultado');
-            divRes.innerHTML = "Buscando...";
+    const nome = document.getElementById('nomeCatequizando').value;
+    const divRes = document.getElementById('resultado');
+    divRes.innerHTML = "Buscando...";
 
-            // COLE O URL DA SUA IMPLANTAÇÃO AQUI ABAIXO
-            const urlScript = https://script.google.com/macros/s/AKfycbz8HKEAGP8MR-Qj1XsX-d_uXFgy9zg3lXXsJLHzF0nfwEg2Ku5VgnMZI04m78thFA36xg/exec;
+    const urlScript = https://script.google.com/macros/s/AKfycbyWEwMVRnVT32H5_Ghk77PJrrQW0Eg_9pfNCgcgwjwtyzG-HEa503mDOXgA_KHeHNMaJA/exec; // Certifique-se que termina em /exec
 
-            fetch(`${urlScript}?nome=${encodeURIComponent(nome)}`)
-                .then(res => res.json())
-                .then(data => {
-                    if (data.erro) {
-                        divRes.innerHTML = "Nome não localizado. Verifique a grafia.";
-                    } else {
-                        divRes.innerHTML = `Sua turma: ${data.turma}<br>`;
-                        divRes.innerHTML += `<a href="${data.link}" class="btn-zap" target="_blank">Entrar no Grupo do WhatsApp</a>`;
-                    }
-                });
-        }
+    fetch(urlScript + "?nome=" + encodeURIComponent(nome))
+        .then(res => res.json())
+        .then(data => {
+            if (data.erro) {
+                divRes.innerHTML = "Nome não localizado. Verifique se escreveu corretamente.";
+            } else {
+                divRes.innerHTML = `Sua turma: ${data.turma}<br><br>` +
+                                 `<a href="${data.link}" class="btn-zap" target="_blank">Entrar no Grupo do WhatsApp</a>`;
+            }
+        })
+        .catch(err => {
+            divRes.innerHTML = "Erro de conexão. Verifique se o link do script está correto.";
+            console.error(err);
+        });
+}
     </script>
 </body>
 </html>
