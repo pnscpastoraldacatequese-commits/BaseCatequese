@@ -23,7 +23,7 @@
     const divRes = document.getElementById('resultado');
     divRes.innerHTML = "Buscando...";
 
-    const urlScript = https://script.google.com/macros/s/AKfycbyWEwMVRnVT32H5_Ghk77PJrrQW0Eg_9pfNCgcgwjwtyzG-HEa503mDOXgA_KHeHNMaJA/exec; // Certifique-se que termina em /exec
+    const urlScript = "https://script.google.com/macros/s/AKfycbyWEwMVRnVT32H5_Ghk77PJrrQW0Eg_9pfNCgcgwjwtyzG-HEa503mDOXgA_KHeHNMaJA/exec"; // Certifique-se que termina em /exec
 
     fetch(urlScript + "?nome=" + encodeURIComponent(nome))
         .then(res => res.json())
