@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Consulta de Turma - Catequese</title>
+    <style>
+        body { font-family: sans-serif; text-align: center; padding: 50px; }
+        input, button { padding: 10px; margin: 5px; border-radius: 5px; border: 1px solid #ccc; }
+        #resultado { margin-top: 20px; font-weight: bold; }
+        .btn-zap { background-color: #25d366; color: white; text-decoration: none; padding: 10px 20px; display: inline-block; border-radius: 5px; margin-top: 10px; }
+    </style>
+</head>
+<body>
+    <h2>Localize sua Turma</h2>
+    <input type="text" id="nomeCatequizando" placeholder="Digite o nome completo do Catequizando">
+    <button onclick="buscar()">Consultar</button>
+
+    <div id="resultado"></div>
+
+    <script>
+        function buscar() {
+            const nome = document.getElementById('nomeCatequizando').value;
+            const divRes = document.getElementById('resultado');
+            divRes.innerHTML = "Buscando...";
+
+            // COLE O URL DA SUA IMPLANTAÇÃO AQUI ABAIXO
+            const urlScript = https://script.google.com/macros/s/AKfycbz8HKEAGP8MR-Qj1XsX-d_uXFgy9zg3lXXsJLHzF0nfwEg2Ku5VgnMZI04m78thFA36xg/exec;
+
+            fetch(`${urlScript}?nome=${encodeURIComponent(nome)}`)
+                .then(res => res.json())
+                .then(data => {
+                    if (data.erro) {
+                        divRes.innerHTML = "Nome não localizado. Verifique a grafia.";
+                    } else {
+                        divRes.innerHTML = `Sua turma: ${data.turma}<br>`;
+                        divRes.innerHTML += `<a href="${data.link}" class="btn-zap" target="_blank">Entrar no Grupo do WhatsApp</a>`;
+                    }
+                });
+        }
+    </script>
+</body>
+</html>
